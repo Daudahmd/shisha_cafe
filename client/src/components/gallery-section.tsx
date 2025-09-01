@@ -1,37 +1,43 @@
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import luxuryOutdoorSetup from "@assets/generated_images/Luxury_outdoor_shisha_setup_a699a404.png";
+import premiumLoungeInterior from "@assets/generated_images/Premium_shisha_lounge_interior_8c0729c8.png";
+import elegantPipeCloseup from "@assets/generated_images/Elegant_shisha_pipe_closeup_a817225e.png";
+import upscalePatioService from "@assets/generated_images/Upscale_patio_shisha_service_525a35ce.png";
+import professionalPreparation from "@assets/generated_images/Professional_shisha_preparation_cda695d2.png";
+import luxuryRooftopBar from "@assets/generated_images/Luxury_rooftop_shisha_bar_bd9f4268.png";
 
 export default function GallerySection() {
   const galleryImages = [
     {
-      src: "https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "Luxury shisha setup",
-      caption: "Wedding Setup"
+      src: luxuryOutdoorSetup,
+      alt: "Luxury outdoor shisha setup",
+      caption: "Outdoor Event Setup"
     },
     {
-      src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "Birthday party setup",
-      caption: "Birthday Celebration"
+      src: premiumLoungeInterior,
+      alt: "Premium shisha lounge interior",
+      caption: "Premium Lounge Experience"
     },
     {
-      src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "Corporate event setup",
-      caption: "Corporate Event"
+      src: elegantPipeCloseup,
+      alt: "Elegant shisha pipe closeup",
+      caption: "Premium Equipment"
     },
     {
-      src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "Garden party setup",
-      caption: "Garden Party"
+      src: upscalePatioService,
+      alt: "Upscale patio shisha service",
+      caption: "Private Residence Service"
     },
     {
-      src: "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "Rooftop party setup",
-      caption: "Rooftop Event"
+      src: professionalPreparation,
+      alt: "Professional shisha preparation",
+      caption: "Expert Preparation"
     },
     {
-      src: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
-      alt: "House party setup",
-      caption: "House Party"
+      src: luxuryRooftopBar,
+      alt: "Luxury rooftop shisha bar",
+      caption: "Rooftop Events"
     }
   ];
 
