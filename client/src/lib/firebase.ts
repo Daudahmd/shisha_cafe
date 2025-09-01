@@ -2,12 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where, Timestamp } from "firebase/firestore";
 
+// Direct Firebase config (replace with your actual config)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebasestorage.app`,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyDSYb_o4gpTub7vjPMGgP3-FEmTX-CyOVA",
+  authDomain: "shishacafe-bf03c.firebaseapp.com",
+  projectId: "shishacafe-bf03c",
+  storageBucket: "shishacafe-bf03c.appspot.com",
+  appId: "1:692246947503:web:fcfa8f977611f35a5d965a",
+  measurementId: "G-B5VRGDQKVQ"
 };
 
 const app = initializeApp(firebaseConfig);

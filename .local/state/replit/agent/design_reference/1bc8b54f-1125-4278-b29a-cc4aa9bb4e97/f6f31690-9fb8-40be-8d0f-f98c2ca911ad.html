@@ -1,0 +1,886 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shisha Chauffeurs - Luxury Mobile Shisha & Mocktail Catering</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    serif: ["Playfair Display", "serif"],
+                    sans: ["Inter", "sans-serif"],
+                }
+            },
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: hsl(0 0% 4%);
+            --foreground: hsl(0 0% 98%);
+            --card: hsl(0 0% 12%);
+            --card-foreground: hsl(0 0% 98%);
+            --primary: hsl(45 100% 51%);
+            --primary-foreground: hsl(0 0% 4%);
+            --secondary: hsl(262 83% 28%);
+            --secondary-foreground: hsl(0 0% 98%);
+            --muted: hsl(0 0% 15%);
+            --muted-foreground: hsl(0 0% 70%);
+            --accent: hsl(45 100% 51%);
+            --accent-foreground: hsl(0 0% 4%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 98%);
+            --border: hsl(0 0% 20%);
+            --input: hsl(0 0% 15%);
+            --ring: hsl(45 100% 51%);
+            --radius: 0.75rem;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+        
+        .gradient-gold {
+            background: linear-gradient(135deg, hsl(45 100% 51%) 0%, hsl(45 100% 40%) 100%);
+        }
+        
+        .gradient-purple {
+            background: linear-gradient(135deg, hsl(262 83% 28%) 0%, hsl(262 83% 20%) 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-float {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-float:hover {
+            transform: translateY(-8px);
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground">
+    <!-- Navigation -->
+    <!-- @COMPONENT: Navigation [sticky header with logo and menu] -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-glass-whiskey text-primary text-2xl"></i>
+                    <span class="font-serif font-bold text-xl">SHISHA CHAUFFEURS</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-primary transition-colors">Home</a>
+                    <a href="#services" class="hover:text-primary transition-colors">Services</a>
+                    <a href="#flavours" class="hover:text-primary transition-colors">Flavours</a>
+                    <a href="#gallery" class="hover:text-primary transition-colors">Gallery</a>
+                    <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-foreground hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- Hero Section -->
+    <!-- @COMPONENT: HeroSection [full-screen video background with overlay content] -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video background placeholder -->
+        <!-- A luxurious hookah setup with colorful smoke against a dark background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-purple-900">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+        
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+            <div class="animate-float mb-6">
+                <i class="fas fa-glass-whiskey text-primary text-6xl mb-4"></i>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-shadow">
+                LUXURY MOBILE <br>
+                <span class="gradient-gold bg-clip-text text-transparent">SHISHA CATERING</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-2 text-muted-foreground">Where flavor meets finesse 🍇</p>
+            <p class="text-lg md:text-xl mb-8 text-muted-foreground">Premium shisha & mocktail services delivered to your doorstep</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="scrollToSection('contact')" class="gradient-gold px-8 py-4 rounded-full text-black font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    Book Your Event
+                </button>
+                <button onclick="scrollToSection('flavours')" class="glass-effect px-8 py-4 rounded-full text-white font-semibold hover:bg-white hover:bg-opacity-10 transition-all duration-300">
+                    Explore Flavours
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-primary text-2xl"></i>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSection -->
+
+    <!-- Services Section -->
+    <!-- @COMPONENT: ServicesSection [three-column service cards with icons] -->
+    <section id="services" class="py-20 bg-muted">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Our Premium Services</h2>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                    Elevate your events with our luxury mobile shisha and mocktail catering services
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-card rounded-xl p-8 hover-float">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 gradient-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-glass-whiskey text-black text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Shisha Catering</h3>
+                        <p class="text-muted-foreground mb-6">
+                            Professional shisha masters bring premium flavours and equipment directly to your event
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Professional setup & service</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Premium tobacco selection</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Luxury equipment provided</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Expert flavor recommendations</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-card rounded-xl p-8 hover-float">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 gradient-purple rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-cocktail text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Mocktail Services</h3>
+                        <p class="text-muted-foreground mb-6">
+                            Handcrafted mocktails made with premium ingredients to complement your shisha experience
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Skilled mixologists</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Premium ingredients</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Custom drink menus</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Beautiful presentation</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-card rounded-xl p-8 hover-float">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-home text-white text-2xl"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Shisha Rentals</h3>
+                        <p class="text-muted-foreground mb-6">
+                            Rent premium shisha equipment for your private events and parties
+                        </p>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> High-quality equipment</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Flexible rental periods</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Setup instructions included</li>
+                        <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Competitive pricing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ServicesSection -->
+
+    <!-- Flavours Menu Section -->
+    <!-- @COMPONENT: FlavoursMenu [interactive menu based on provided image] -->
+    <section id="flavours" class="py-20 bg-background">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">FLAVOURS MENU</h2>
+                <p class="text-xl text-muted-foreground">Discover our premium selection of shisha flavours</p>
+            </div>
+
+            <!-- Standard Flavours -->
+            <div class="mb-16">
+                <h3 class="font-serif text-3xl font-semibold text-center mb-12 border-b border-primary pb-4">
+                    Standard Flavours
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- @MAP: standardFlavours.map(flavour => ( -->
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🍎</div>
+                        <h4 class="font-semibold text-lg mb-2" data-bind="flavour.name">Double Apple</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🍋</div>
+                        <h4 class="font-semibold text-lg mb-2">Lemon Mint</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🍇</div>
+                        <h4 class="font-semibold text-lg mb-2">Grape</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🫐</div>
+                        <h4 class="font-semibold text-lg mb-2">Blueberry</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🍑</div>
+                        <h4 class="font-semibold text-lg mb-2">Peach</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🥭</div>
+                        <h4 class="font-semibold text-lg mb-2">Mango</h4>
+                    </div>
+                    <div class="bg-card rounded-xl p-6 text-center hover-float glass-effect">
+                        <div class="text-4xl mb-3">🌿</div>
+                        <h4 class="font-semibold text-lg mb-2">Lady Killer</h4>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+
+            <!-- Premium Flavours -->
+            <div>
+                <h3 class="font-serif text-3xl font-semibold text-center mb-12 border-b border-primary pb-4">
+                    Premium Flavours
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- @MAP: premiumFlavours.map(flavour => ( -->
+                    <div class="bg-card rounded-xl p-8 hover-float gradient-purple">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🍷</div>
+                            <h4 class="font-serif text-xl font-semibold mb-3">Chauffeur Special</h4>
+                            <p class="text-sm text-gray-300">(Blue Dragon + Lady Killer)</p>
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-xl p-8 hover-float gradient-purple">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">💙</div>
+                            <h4 class="font-serif text-xl font-semibold mb-3">Blue Mist</h4>
+                            <p class="text-sm text-gray-300">(Blueberry + Mint)</p>
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-xl p-8 hover-float gradient-purple">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🍃</div>
+                            <h4 class="font-serif text-xl font-semibold mb-3">Royal Paan Breeze</h4>
+                            <p class="text-sm text-gray-300">(Paan + Mint)</p>
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-xl p-8 hover-float gradient-purple">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🌅</div>
+                            <h4 class="font-serif text-xl font-semibold mb-3">Summer Sunset</h4>
+                            <p class="text-sm text-gray-300">(Mango + Peach + Lemon)</p>
+                        </div>
+                    </div>
+                    <div class="bg-card rounded-xl p-8 hover-float gradient-purple">
+                        <div class="text-center">
+                            <div class="text-4xl mb-4">🍓</div>
+                            <h4 class="font-serif text-xl font-semibold mb-3">Raspberry Mojito</h4>
+                            <p class="text-sm text-gray-300">(Raspberry + Mint + Lime)</p>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: FlavoursMenu -->
+
+    <!-- Gallery Section -->
+    <!-- @COMPONENT: Gallery [Instagram-style image grid] -->
+    <section id="gallery" class="py-20 bg-muted">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Event Gallery</h2>
+                <p class="text-xl text-muted-foreground">See our luxury setups in action</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery images with Instagram-style hover effects -->
+                <!-- @MAP: galleryImages.map(image => ( -->
+                <!-- A luxurious outdoor shisha setup with golden lighting and premium equipment -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="Luxury shisha setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">Wedding Setup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- An elegant birthday party with shisha and colorful mocktails -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="Birthday party setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">Birthday Celebration</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A sophisticated corporate event with premium shisha service -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="Corporate event setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">Corporate Event</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A private garden party with beautifully arranged shisha stations -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="Garden party setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">Garden Party</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- An upscale rooftop gathering with premium mocktails and shisha -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="Rooftop party setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">Rooftop Event</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- A stylish housewarming party with expertly prepared shisha -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800" alt="House party setup" class="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fab fa-instagram text-3xl mb-2"></i>
+                            <p class="font-semibold">House Party</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="https://www.instagram.com/shishachauffeurs/" target="_blank" class="inline-flex items-center gradient-gold px-8 py-4 rounded-full text-black font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-instagram mr-2"></i>
+                    Follow Us @shishachauffeurs
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Gallery -->
+
+    <!-- About Section -->
+    <!-- @COMPONENT: AboutSection [brand story and values] -->
+    <section class="py-20 bg-background">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">About Shisha Chauffeurs</h2>
+                    <p class="text-xl mb-6 text-primary">Where flavor meets finesse 🍇</p>
+                    <p class="text-lg text-muted-foreground mb-6">
+                        We are a premium mobile shisha and mocktail catering service that brings luxury directly to your events. 
+                        Our team of professionals ensures every gathering becomes an unforgettable experience with the finest 
+                        flavours and impeccable service.
+                    </p>
+                    <p class="text-lg text-muted-foreground mb-8">
+                        Specializing in outdoor locations and private residences, we transform any space into a sophisticated 
+                        entertainment venue with our premium equipment and expertly crafted experiences.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-3"></i>
+                            <span>Outdoor & Private Residence Services Only</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-3"></i>
+                            <span>Professional Setup & Expert Service</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-3"></i>
+                            <span>Premium Quality Guaranteed</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-primary mr-3"></i>
+                            <span>Deposit Required to Secure Booking</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- A professional shisha master preparing premium equipment in an elegant setting -->
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" alt="Professional shisha service" class="rounded-xl shadow-2xl">
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 gradient-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-glass-whiskey text-black text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AboutSection -->
+
+    <!-- Contact Form Section -->
+    <!-- @COMPONENT: ContactForm [multi-step form based on Google Form] -->
+    <section id="contact" class="py-20 bg-muted">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Book Your Event</h2>
+                <p class="text-xl text-muted-foreground">Let's make your event unforgettable!</p>
+            </div>
+
+            <div class="bg-card rounded-xl p-8 lg:p-12">
+                <!-- @STATE: currentStep:number = 1, formData:object = {} -->
+                <form id="bookingForm" class="space-y-8">
+                    <!-- Progress Indicator -->
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-muted-foreground">Step <span id="currentStepNumber">1</span> of 5</span>
+                            <span class="text-sm text-muted-foreground">Progress: <span id="progressPercentage">20%</span></span>
+                        </div>
+                        <div class="w-full bg-muted-foreground bg-opacity-20 rounded-full h-2">
+                            <div id="progressBar" class="gradient-gold h-2 rounded-full transition-all duration-300" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-step active" data-step="1">
+                        <h3 class="font-serif text-2xl font-semibold mb-6">Personal Information</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">First Name *</label>
+                                <input type="text" name="firstName" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Last Name *</label>
+                                <input type="text" name="lastName" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Email *</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Phone Number *</label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium mb-2">Instagram Handle (Optional)</label>
+                                <input type="text" name="instagram" placeholder="@username" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Service Selection -->
+                    <div class="form-step" data-step="2">
+                        <h3 class="font-serif text-2xl font-semibold mb-6">Service Selection</h3>
+                        <div class="space-y-4">
+                            <label class="flex items-center p-4 border border-border rounded-lg hover:border-primary cursor-pointer">
+                                <input type="checkbox" name="services" value="shisha-catering" class="mr-3 text-primary">
+                                <div>
+                                    <span class="font-semibold">Shisha Catering</span>
+                                    <p class="text-sm text-muted-foreground">Professional shisha service with premium flavours</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 border border-border rounded-lg hover:border-primary cursor-pointer">
+                                <input type="checkbox" name="services" value="mocktail-services" class="mr-3 text-primary">
+                                <div>
+                                    <span class="font-semibold">Mocktail Services</span>
+                                    <p class="text-sm text-muted-foreground">Handcrafted mocktails by skilled mixologists</p>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 border border-border rounded-lg hover:border-primary cursor-pointer">
+                                <input type="checkbox" name="services" value="shisha-rental" class="mr-3 text-primary">
+                                <div>
+                                    <span class="font-semibold">Shisha Rental</span>
+                                    <p class="text-sm text-muted-foreground">Rent premium equipment for self-service</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Event Details -->
+                    <div class="form-step" data-step="3">
+                        <h3 class="font-serif text-2xl font-semibold mb-6">Event Details</h3>
+                        <div class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Event Date *</label>
+                                    <input type="date" name="eventDate" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Event Time *</label>
+                                    <input type="time" name="eventTime" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Event Location *</label>
+                                <textarea name="location" required placeholder="Full address (Outdoor/Private residence only)" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent h-24"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Number of Guests *</label>
+                                <select name="guestCount" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Select guest count</option>
+                                    <option value="1-10">1-10 guests</option>
+                                    <option value="11-25">11-25 guests</option>
+                                    <option value="26-50">26-50 guests</option>
+                                    <option value="51-100">51-100 guests</option>
+                                    <option value="100+">100+ guests</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Event Type</label>
+                                <select name="eventType" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Select event type</option>
+                                    <option value="birthday">Birthday Party</option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="housewarming">Housewarming</option>
+                                    <option value="celebration">General Celebration</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Preferences -->
+                    <div class="form-step" data-step="4">
+                        <h3 class="font-serif text-2xl font-semibold mb-6">Preferences & Requirements</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Preferred Shisha Flavours</label>
+                                <textarea name="flavourPreferences" placeholder="List any specific flavours you'd like or dietary restrictions" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent h-24"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Special Requirements</label>
+                                <textarea name="specialRequirements" placeholder="Any special setup requirements, accessibility needs, or additional requests" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent h-24"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Budget Range (Optional)</label>
+                                <select name="budget" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Select budget range</option>
+                                    <option value="under-500">Under £500</option>
+                                    <option value="500-1000">£500 - £1,000</option>
+                                    <option value="1000-2000">£1,000 - £2,000</option>
+                                    <option value="2000+">£2,000+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Confirmation -->
+                    <div class="form-step" data-step="5">
+                        <h3 class="font-serif text-2xl font-semibold mb-6">Confirmation</h3>
+                        <div class="bg-muted rounded-lg p-6 mb-6">
+                            <h4 class="font-semibold mb-4">Important Information:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start"><i class="fas fa-check text-primary mr-2 mt-1"></i> Services are available for outdoor locations and private residences only</li>
+                                <li class="flex items-start"><i class="fas fa-check text-primary mr-2 mt-1"></i> A deposit is required to secure your booking</li>
+                                <li class="flex items-start"><i class="fas fa-check text-primary mr-2 mt-1"></i> Our team will contact you within 24 hours to confirm availability</li>
+                                <li class="flex items-start"><i class="fas fa-check text-primary mr-2 mt-1"></i> Final pricing will be provided based on your specific requirements</li>
+                            </ul>
+                        </div>
+                        <div class="flex items-center mb-6">
+                            <input type="checkbox" name="terms" required class="mr-3 text-primary">
+                            <label class="text-sm">I agree to the terms and conditions and understand that a deposit is required *</label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-8 border-t border-border">
+                        <button type="button" id="prevBtn" class="px-6 py-3 border border-border rounded-lg hover:bg-muted transition-colors" style="display: none;">
+                            Previous
+                        </button>
+                        <div class="flex-1"></div>
+                        <button type="button" id="nextBtn" class="gradient-gold px-8 py-3 rounded-lg text-black font-semibold hover:shadow-lg transition-all duration-300">
+                            Next Step
+                        </button>
+                        <button type="submit" id="submitBtn" class="gradient-gold px-8 py-3 rounded-lg text-black font-semibold hover:shadow-lg transition-all duration-300" style="display: none;" data-implementation="Should validate and submit form data">
+                            Submit Booking Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ContactForm -->
+
+    <!-- Footer -->
+    <!-- @COMPONENT: Footer [contact info and social links] -->
+    <footer class="bg-background py-16 border-t border-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-glass-whiskey text-primary text-2xl"></i>
+                        <span class="font-serif font-bold text-xl">SHISHA CHAUFFEURS</span>
+                    </div>
+                    <p class="text-muted-foreground mb-4">Where flavor meets finesse 🍇</p>
+                    <p class="text-sm text-muted-foreground">Premium mobile shisha and mocktail catering services for your luxury events.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Information</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-primary mr-2"></i>
+                            <a href="mailto:ShishaChauffeurs@Gmail.Com" class="hover:text-primary transition-colors">ShishaChauffeurs@Gmail.Com</a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-primary mr-2"></i>
+                            <span class="text-muted-foreground">Outdoor & Private Residences Only</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/shishachauffeurs/" target="_blank" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-black hover:bg-opacity-80 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-black hover:bg-opacity-80 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm text-muted-foreground mt-4">@shishachauffeurs</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
+                <p>&copy; 2024 Shisha Chauffeurs. All rights reserved. | Deposit required for all bookings.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // Smooth scrolling functionality
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Multi-step form functionality
+        (function() {
+            let currentStep = 1;
+            const totalSteps = 5;
+            
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const steps = document.querySelectorAll('.form-step');
+            const progressBar = document.getElementById('progressBar');
+            const currentStepNumber = document.getElementById('currentStepNumber');
+            const progressPercentage = document.getElementById('progressPercentage');
+            
+            function updateProgress() {
+                const progress = (currentStep / totalSteps) * 100;
+                progressBar.style.width = progress + '%';
+                currentStepNumber.textContent = currentStep;
+                progressPercentage.textContent = Math.round(progress) + '%';
+            }
+            
+            function showStep(step) {
+                steps.forEach((stepEl, index) => {
+                    stepEl.classList.toggle('active', index + 1 === step);
+                });
+                
+                prevBtn.style.display = step === 1 ? 'none' : 'block';
+                nextBtn.style.display = step === totalSteps ? 'none' : 'block';
+                submitBtn.style.display = step === totalSteps ? 'block' : 'none';
+                
+                updateProgress();
+            }
+            
+            function validateCurrentStep() {
+                const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                const requiredInputs = currentStepEl.querySelectorAll('[required]');
+                
+                for (let input of requiredInputs) {
+                    if (!input.value.trim()) {
+                        input.focus();
+                        return false;
+                    }
+                }
+                return true;
+            }
+            
+            nextBtn.addEventListener('click', function() {
+                if (validateCurrentStep() && currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+            
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // TODO: Implement form submission logic
+                alert('Thank you for your booking request! We will contact you within 24 hours to confirm availability.');
+            });
+            
+            // Initialize
+            showStep(1);
+        })();
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-opacity-95');
+            } else {
+                nav.classList.remove('bg-opacity-95');
+            }
+        });
+
+        // Add smooth animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+    <style>
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile menu styles */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+        }
+    </style>
+</body>
+</html>

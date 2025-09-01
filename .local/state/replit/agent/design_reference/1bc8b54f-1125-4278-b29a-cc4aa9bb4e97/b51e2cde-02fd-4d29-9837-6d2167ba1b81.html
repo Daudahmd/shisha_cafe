@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shisha Chauffeurs - Luxury Mobile Shisha & Mocktail Catering</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    serif: ["Playfair Display", "serif"],
+                    sans: ["Inter", "sans-serif"],
+                    script: ["Dancing Script", "cursive"],
+                }
+            },
+        }
+    };
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --background: hsl(0 0% 4%);
+            --foreground: hsl(45 38% 94%);
+            --card: hsl(0 0% 8%);
+            --card-foreground: hsl(45 38% 94%);
+            --primary: hsl(45 70% 58%);
+            --primary-foreground: hsl(0 0% 4%);
+            --secondary: hsl(261 69% 58%);
+            --secondary-foreground: hsl(45 38% 94%);
+            --muted: hsl(0 0% 11%);
+            --muted-foreground: hsl(45 15% 70%);
+            --accent: hsl(45 84% 87%);
+            --accent-foreground: hsl(0 0% 4%);
+            --border: hsl(0 0% 15%);
+            --input: hsl(0 0% 11%);
+            --ring: hsl(45 70% 58%);
+            --radius: 0.75rem;
+        }
+        
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(45, 27, 105, 0.6) 50%, rgba(212, 175, 55, 0.3) 100%);
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground font-sans antialiased">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-smoking text-primary text-2xl"></i>
+                    <span class="text-xl font-serif font-bold">Shisha Chauffeurs</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#services" class="text-muted-foreground hover:text-primary transition-colors">Services</a>
+                    <a href="#gallery" class="text-muted-foreground hover:text-primary transition-colors">Gallery</a>
+                    <a href="#about" class="text-muted-foreground hover:text-primary transition-colors">About</a>
+                    <a href="#contact" class="bg-primary text-primary-foreground px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Book Now</a>
+                </div>
+                <button class="md:hidden text-primary">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Luxury shisha lounge setup with golden lighting and elegant ambiance -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080');"></div>
+        <div class="absolute inset-0 gradient-overlay"></div>
+        
+        <div class="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+                Luxury Mobile
+                <span class="text-primary font-script block text-6xl md:text-8xl">Shisha Experience</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+                Premium shisha catering, handcrafted mocktails, and luxury rentals for your private events and outdoor gatherings
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#contact" class="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-all transform hover:scale-105">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Book Your Event
+                </a>
+                <a href="#services" class="border border-primary text-primary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-all">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Learn More
+                </a>
+            </div>
+            
+            <!-- Key Benefits -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                <div class="text-center">
+                    <i class="fas fa-home text-primary text-3xl mb-3"></i>
+                    <h3 class="font-semibold mb-2">Outdoor & Private Residences</h3>
+                    <p class="text-sm text-muted-foreground">Exclusively serving outdoor locations and private homes</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-star text-primary text-3xl mb-3"></i>
+                    <h3 class="font-semibold mb-2">Premium Quality</h3>
+                    <p class="text-sm text-muted-foreground">High-end equipment and premium ingredients</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-users text-primary text-3xl mb-3"></i>
+                    <h3 class="font-semibold mb-2">Professional Service</h3>
+                    <p class="text-sm text-muted-foreground">Expert staff for an unforgettable experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-muted/30">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Our Premium Services</h2>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                    From intimate gatherings to grand celebrations, we deliver luxury experiences that your guests will never forget
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Shisha Catering -->
+                <div class="bg-card rounded-xl overflow-hidden group hover:transform hover:scale-105 transition-all duration-300">
+                    <!-- Premium shisha pipes arranged elegantly with ornate details -->
+                    <div class="relative h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-2xl font-serif font-bold mb-2">Shisha Catering</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-muted-foreground mb-4">
+                            Premium shisha service with exotic flavors, professional setup, and experienced attendants for your events.
+                        </p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Premium tobacco flavors</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Professional attendants</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Complete setup included</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Flexible packages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mocktail Services -->
+                <div class="bg-card rounded-xl overflow-hidden group hover:transform hover:scale-105 transition-all duration-300">
+                    <!-- Elegant mocktail presentation with garnishes and sophisticated glassware -->
+                    <div class="relative h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-2xl font-serif font-bold mb-2">Mocktail Services</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-muted-foreground mb-4">
+                            Handcrafted premium mocktails with fresh ingredients, elegant presentation, and professional bartending.
+                        </p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Fresh premium ingredients</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Professional bartenders</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Custom menu creation</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Elegant presentation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Equipment Rentals -->
+                <div class="bg-card rounded-xl overflow-hidden group hover:transform hover:scale-105 transition-all duration-300">
+                    <!-- Luxury outdoor event setup with premium furniture and lighting -->
+                    <div class="relative h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <h3 class="text-2xl font-serif font-bold mb-2">Luxury Rentals</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-muted-foreground mb-4">
+                            Premium shisha equipment, furniture, and accessories rental for self-hosted events and parties.
+                        </p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>High-end shisha equipment</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Luxury seating options</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Decorative accessories</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i>Flexible rental periods</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Event Gallery</h2>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                    Discover the luxury experiences we've created for our clients
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Modern outdoor event setup with elegant shisha station and lounge seating -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Outdoor event setup" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Outdoor Event Setup</p>
+                    </div>
+                </div>
+
+                <!-- Elegant shisha pipes with golden accents in upscale setting -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Premium shisha setup" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Premium Shisha Setup</p>
+                    </div>
+                </div>
+
+                <!-- Artisanal mocktails with elaborate garnishes and premium presentation -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Handcrafted mocktails" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Handcrafted Mocktails</p>
+                    </div>
+                </div>
+
+                <!-- Upscale private party with luxury catering and atmospheric lighting -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Private party catering" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Private Party Catering</p>
+                    </div>
+                </div>
+
+                <!-- Luxury outdoor lounge area with premium furnishings and ambiance -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="Luxury lounge setup" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Luxury Lounge Setup</p>
+                    </div>
+                </div>
+
+                <!-- High-end wedding reception with elegant shisha service integration -->
+                <div class="relative group overflow-hidden rounded-xl">
+                    <img src="https://pixabay.com/get/g646b8aa32109bd48fc3a85594061bb8b86fa679490fd8236fe43cab2dc6b882bdf6fbce64dcde184b57b863bf0b955dd215ed175df0f7ea05807170a10de0251_1280.jpg" alt="Wedding reception service" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                        <p class="text-white p-4 font-semibold">Wedding Reception Service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-muted/30">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">About Shisha Chauffeurs</h2>
+                    <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
+                        We are the premier luxury mobile shisha and mocktail catering service, specializing in creating unforgettable experiences for private events and outdoor gatherings.
+                    </p>
+                    <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
+                        Our team of professional attendants and bartenders brings years of experience in hospitality and event management, ensuring every detail of your event is perfectly executed.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-award text-primary text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold mb-1">Premium Quality</h4>
+                                <p class="text-sm text-muted-foreground">Only the finest ingredients and equipment</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-users text-primary text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold mb-1">Expert Team</h4>
+                                <p class="text-sm text-muted-foreground">Professional and experienced staff</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-clock text-primary text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold mb-1">Reliable Service</h4>
+                                <p class="text-sm text-muted-foreground">On-time delivery and setup</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-heart text-primary text-xl mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold mb-1">Customer Focus</h4>
+                                <p class="text-sm text-muted-foreground">Your satisfaction is our priority</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-card p-6 rounded-lg border border-border">
+                        <h4 class="text-xl font-serif font-semibold mb-3">Important Service Notes</h4>
+                        <ul class="space-y-2 text-muted-foreground">
+                            <li class="flex items-center"><i class="fas fa-home text-primary mr-3"></i>Services available for outdoor locations and private residences only</li>
+                            <li class="flex items-center"><i class="fas fa-credit-card text-primary mr-3"></i>Deposit required to secure all bookings</li>
+                            <li class="flex items-center"><i class="fas fa-calendar text-primary mr-3"></i>Advanced booking recommended for all events</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- Professional team setting up luxury shisha service at an elegant event -->
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" alt="Professional shisha service team" class="rounded-xl shadow-2xl w-full" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">Book Your Luxury Experience</h2>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                    Let's make your event unforgettable with our premium shisha and mocktail services
+                </p>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-card p-8 rounded-xl border border-border shadow-lg">
+                    <!-- Progress Bar -->
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-muted-foreground">Step <span id="current-step">1</span> of 5</span>
+                            <span class="text-sm text-muted-foreground"><span id="progress-percent">20</span>% Complete</span>
+                        </div>
+                        <div class="w-full bg-muted rounded-full h-2">
+                            <div id="progress-bar" class="bg-primary h-2 rounded-full progress-bar" style="width: 20%"></div>
+                        </div>
+                    </div>
+
+                    <form id="booking-form" data-implementation="Multi-step form handling with validation">
+                        <!-- Step 1: Personal Information -->
+                        <div class="form-step active" id="step-1">
+                            <h3 class="text-2xl font-serif font-semibold mb-6">Personal Information</h3>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="firstName" class="block text-sm font-medium mb-2">First Name *</label>
+                                        <input type="text" id="firstName" name="firstName" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" placeholder="Enter your first name" />
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="block text-sm font-medium mb-2">Last Name *</label>
+                                        <input type="text" id="lastName" name="lastName" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" placeholder="Enter your last name" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium mb-2">Email Address *</label>
+                                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" placeholder="your@email.com" />
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium mb-2">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" placeholder="+1 (555) 123-4567" />
+                                </div>
+                                <div>
+                                    <label for="instagram" class="block text-sm font-medium mb-2">Instagram Handle (Optional)</label>
+                                    <input type="text" id="instagram" name="instagram" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" placeholder="@yourusername" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Service Selection -->
+                        <div class="form-step" id="step-2">
+                            <h3 class="text-2xl font-serif font-semibold mb-6">Service Selection</h3>
+                            <div class="space-y-4">
+                                <p class="text-muted-foreground mb-4">Select the services you would like for your event:</p>
+                                <div class="space-y-3">
+                                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
+                                        <input type="checkbox" name="services" value="shisha-catering" class="text-primary focus:ring-primary border-border rounded" />
+                                        <div class="ml-3">
+                                            <div class="font-medium">Shisha Catering</div>
+                                            <div class="text-sm text-muted-foreground">Professional shisha service with attendants</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
+                                        <input type="checkbox" name="services" value="mocktail-service" class="text-primary focus:ring-primary border-border rounded" />
+                                        <div class="ml-3">
+                                            <div class="font-medium">Mocktail Services</div>
+                                            <div class="text-sm text-muted-foreground">Handcrafted mocktails with professional bartenders</div>
+                                        </div>
+                                    </label>
+                                    <label class="flex items-center p-4 border border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
+                                        <input type="checkbox" name="services" value="equipment-rental" class="text-primary focus:ring-primary border-border rounded" />
+                                        <div class="ml-3">
+                                            <div class="font-medium">Equipment Rentals</div>
+                                            <div class="text-sm text-muted-foreground">Premium shisha equipment and accessories</div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Event Details -->
+                        <div class="form-step" id="step-3">
+                            <h3 class="text-2xl font-serif font-semibold mb-6">Event Details</h3>
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label for="eventDate" class="block text-sm font-medium mb-2">Event Date *</label>
+                                        <input type="date" id="eventDate" name="eventDate" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                                    </div>
+                                    <div>
+                                        <label for="eventTime" class="block text-sm font-medium mb-2">Event Time *</label>
+                                        <input type="time" id="eventTime" name="eventTime" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="guestCount" class="block text-sm font-medium mb-2">Number of Guests *</label>
+                                    <select id="guestCount" name="guestCount" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors">
+                                        <option value="">Select guest count</option>
+                                        <option value="1-10">1-10 guests</option>
+                                        <option value="11-25">11-25 guests</option>
+                                        <option value="26-50">26-50 guests</option>
+                                        <option value="51-100">51-100 guests</option>
+                                        <option value="100+">100+ guests</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="eventType" class="block text-sm font-medium mb-2">Event Type</label>
+                                    <select id="eventType" name="eventType" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors">
+                                        <option value="">Select event type</option>
+                                        <option value="birthday">Birthday Party</option>
+                                        <option value="wedding">Wedding</option>
+                                        <option value="corporate">Corporate Event</option>
+                                        <option value="anniversary">Anniversary</option>
+                                        <option value="graduation">Graduation</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Location Details -->
+                        <div class="form-step" id="step-4">
+                            <h3 class="text-2xl font-serif font-semibold mb-6">Location Details</h3>
+                            <div class="space-y-4">
+                                <div class="bg-muted/50 p-4 rounded-lg border border-border">
+                                    <div class="flex items-start space-x-3">
+                                        <i class="fas fa-info-circle text-primary text-lg mt-1"></i>
+                                        <div>
+                                            <h4 class="font-semibold mb-1">Service Areas</h4>
+                                            <p class="text-sm text-muted-foreground">We exclusively serve outdoor locations and private residences. Indoor venues are not available.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="address" class="block text-sm font-medium mb-2">Event Address *</label>
+                                    <textarea id="address" name="address" required rows="3" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors resize-none" placeholder="Enter the full address where the event will take place"></textarea>
+                                </div>
+                                <div>
+                                    <label for="venueType" class="block text-sm font-medium mb-2">Venue Type *</label>
+                                    <select id="venueType" name="venueType" required class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors">
+                                        <option value="">Select venue type</option>
+                                        <option value="backyard">Private Backyard</option>
+                                        <option value="garden">Garden/Patio</option>
+                                        <option value="rooftop">Rooftop</option>
+                                        <option value="park">Private Park/Field</option>
+                                        <option value="beach">Beach/Waterfront</option>
+                                        <option value="other-outdoor">Other Outdoor Location</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="specialRequests" class="block text-sm font-medium mb-2">Special Requests or Notes</label>
+                                    <textarea id="specialRequests" name="specialRequests" rows="4" class="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-primary transition-colors resize-none" placeholder="Any special requirements, preferences, or additional information about your event..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Review & Submit -->
+                        <div class="form-step" id="step-5">
+                            <h3 class="text-2xl font-serif font-semibold mb-6">Review & Submit</h3>
+                            <div class="space-y-6">
+                                <div class="bg-muted/50 p-6 rounded-lg border border-border">
+                                    <h4 class="font-semibold mb-4">Booking Summary</h4>
+                                    <div id="booking-summary" class="space-y-2 text-sm">
+                                        <!-- Summary will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-destructive/10 border border-destructive/20 p-4 rounded-lg">
+                                    <div class="flex items-start space-x-3">
+                                        <i class="fas fa-exclamation-triangle text-destructive text-lg mt-1"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-destructive mb-2">Important Deposit Information</h4>
+                                            <p class="text-sm text-muted-foreground">A deposit is required to secure your booking. Our team will contact you within 24 hours to confirm availability and arrange deposit payment.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <label class="flex items-start space-x-3 cursor-pointer">
+                                    <input type="checkbox" id="terms" name="terms" required class="text-primary focus:ring-primary border-border rounded mt-1" />
+                                    <span class="text-sm text-muted-foreground">
+                                        I agree to the terms and conditions, understand that services are available for outdoor locations and private residences only, and acknowledge that a deposit is required to secure my booking.
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between mt-8 pt-6 border-t border-border">
+                            <button type="button" id="prev-btn" class="px-6 py-3 border border-border rounded-lg hover:bg-muted transition-colors" style="display: none;" data-event="click:previousStep">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button type="button" id="next-btn" class="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors ml-auto" data-event="click:nextStep">
+                                Next
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                            <button type="submit" id="submit-btn" class="px-8 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors ml-auto" style="display: none;" data-implementation="Submit form data and show confirmation">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Submit Booking Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-card border-t border-border py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-smoking text-primary text-2xl"></i>
+                        <span class="text-xl font-serif font-bold">Shisha Chauffeurs</span>
+                    </div>
+                    <p class="text-muted-foreground mb-4 max-w-md">
+                        Premium luxury mobile shisha and mocktail catering services for outdoor events and private residences.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://instagram.com/shishachauffeurs" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="https://tiktok.com/@shishachauffeurs" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-tiktok text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2 text-muted-foreground">
+                        <li><a href="#services" class="hover:text-primary transition-colors">Shisha Catering</a></li>
+                        <li><a href="#services" class="hover:text-primary transition-colors">Mocktail Services</a></li>
+                        <li><a href="#services" class="hover:text-primary transition-colors">Equipment Rentals</a></li>
+                        <li><a href="#gallery" class="hover:text-primary transition-colors">Event Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-muted-foreground">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-primary"></i>
+                            <a href="mailto:ShishaChauffeurs@Gmail.Com" class="hover:text-primary transition-colors">ShishaChauffeurs@Gmail.Com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-instagram mr-2 text-primary"></i>
+                            <span>@ShishaChauffeurs</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-home mr-2 text-primary"></i>
+                            <span>Outdoor & Private Residences Only</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
+                <p>&copy; 2024 Shisha Chauffeurs. All rights reserved. | Luxury Mobile Shisha & Mocktail Catering</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Multi-step form functionality
+        (() => {
+            let currentStep = 1;
+            const totalSteps = 5;
+            
+            const steps = document.querySelectorAll('.form-step');
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const currentStepSpan = document.getElementById('current-step');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressBar = document.getElementById('progress-bar');
+            
+            function updateProgress() {
+                const percent = (currentStep / totalSteps) * 100;
+                currentStepSpan.textContent = currentStep;
+                progressPercent.textContent = Math.round(percent);
+                progressBar.style.width = percent + '%';
+            }
+            
+            function showStep(step) {
+                steps.forEach(s => s.classList.remove('active'));
+                document.getElementById(`step-${step}`).classList.add('active');
+                
+                // Show/hide navigation buttons
+                prevBtn.style.display = step === 1 ? 'none' : 'inline-flex';
+                nextBtn.style.display = step === totalSteps ? 'none' : 'inline-flex';
+                submitBtn.style.display = step === totalSteps ? 'inline-flex' : 'none';
+                
+                updateProgress();
+                
+                if (step === totalSteps) {
+                    updateBookingSummary();
+                }
+            }
+            
+            function validateStep(step) {
+                const stepElement = document.getElementById(`step-${step}`);
+                const requiredFields = stepElement.querySelectorAll('[required]');
+                
+                for (let field of requiredFields) {
+                    if (!field.value.trim()) {
+                        field.focus();
+                        field.classList.add('border-destructive');
+                        setTimeout(() => field.classList.remove('border-destructive'), 3000);
+                        return false;
+                    }
+                }
+                
+                if (step === 2) {
+                    const services = stepElement.querySelectorAll('input[name="services"]:checked');
+                    if (services.length === 0) {
+                        alert('Please select at least one service.');
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            
+            function updateBookingSummary() {
+                const formData = new FormData(document.getElementById('booking-form'));
+                const summary = document.getElementById('booking-summary');
+                
+                const services = Array.from(document.querySelectorAll('input[name="services"]:checked'))
+                    .map(s => s.value.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()));
+                
+                summary.innerHTML = `
+                    <p><strong>Name:</strong> ${formData.get('firstName')} ${formData.get('lastName')}</p>
+                    <p><strong>Email:</strong> ${formData.get('email')}</p>
+                    <p><strong>Phone:</strong> ${formData.get('phone')}</p>
+                    ${formData.get('instagram') ? `<p><strong>Instagram:</strong> ${formData.get('instagram')}</p>` : ''}
+                    <p><strong>Services:</strong> ${services.join(', ')}</p>
+                    <p><strong>Event Date:</strong> ${formData.get('eventDate')}</p>
+                    <p><strong>Event Time:</strong> ${formData.get('eventTime')}</p>
+                    <p><strong>Guest Count:</strong> ${formData.get('guestCount')}</p>
+                    <p><strong>Venue Type:</strong> ${formData.get('venueType')}</p>
+                `;
+            }
+            
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                currentStep--;
+                showStep(currentStep);
+            });
+            
+            document.getElementById('booking-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // TODO: Implement form submission logic
+                alert('Thank you for your booking request! We will contact you within 24 hours to confirm availability and arrange deposit payment.');
+            });
+            
+            // Initialize
+            showStep(1);
+        })();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
