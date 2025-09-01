@@ -63,6 +63,15 @@ export default function Footer() {
         
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; 2024 Shisha Chauffeurs. All rights reserved. | Deposit required for all bookings.</p>
+          <div className="mt-4">
+            <a 
+              href="/admin/login" 
+              className="text-xs text-muted-foreground hover:text-primary transition-colors"
+              data-testid="link-admin-access"
+            >
+              Admin Access
+            </a>
+          </div>
         </div>
       </div>
     </footer>
