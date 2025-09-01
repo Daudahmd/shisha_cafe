@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import menuImage from "@assets/image_1756729916404.png";
 
 export default function FlavoursMenu() {
   const standardFlavours = [
@@ -26,15 +25,6 @@ export default function FlavoursMenu() {
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">FLAVOURS MENU</h2>
           <p className="text-xl text-muted-foreground">Discover our premium selection of shisha flavours</p>
-          
-          {/* Menu Image */}
-          <div className="max-w-md mx-auto mt-8 mb-12">
-            <img 
-              src={menuImage} 
-              alt="Shisha Chauffeurs Flavours Menu" 
-              className="w-full rounded-xl shadow-2xl hover-float"
-            />
-          </div>
         </div>
 
         {/* Standard Flavours */}
