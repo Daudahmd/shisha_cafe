@@ -10,14 +10,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Wine, LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Wine, LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2, Eye, MessageSquare } from "lucide-react";
 import type { Booking } from "@shared/schema";
 
 export default function AdminDashboard() {
   const { user, loading: authLoading } = useAuth();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const [selectedBooking, setSelectedBooking] = useState<any>(null);
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -152,13 +155,138 @@ export default function AdminDashboard() {
                 <TableCell>
                   <Badge 
                     variant={booking.status === 'confirmed' ? 'default' : 
-                           booking.status === 'cancelled' ? 'destructive' : 'secondary'}
+                           booking.status === 'cancelled' ? 'destructive' : 
+                           booking.status === 'completed' ? 'outline' : 'secondary'}
                   >
                     {booking.status || 'pending'}
                   </Badge>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-2">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm" onClick={() => setSelectedBooking(booking)}>
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle>Booking Details</DialogTitle>
+                        </DialogHeader>
+                        {selectedBooking && (
+                          <div className="space-y-6">
+                            {/* Customer Information */}
+                            <div>
+                              <h3 className="text-lg font-semibold mb-3">Customer Information</h3>
+                              <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Name</p>
+                                  <p className="font-medium">{selectedBooking.firstName} {selectedBooking.lastName}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Email</p>
+                                  <p className="font-medium">{selectedBooking.email}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Phone</p>
+                                  <p className="font-medium">{selectedBooking.phone}</p>
+                                </div>
+                                {selectedBooking.instagram && (
+                                  <div>
+                                    <p className="text-sm text-muted-foreground">Instagram</p>
+                                    <p className="font-medium">@{selectedBooking.instagram}</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            {/* Event Details */}
+                            <div>
+                              <h3 className="text-lg font-semibold mb-3">Event Details</h3>
+                              <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Date & Time</p>
+                                  <p className="font-medium">{selectedBooking.eventDate} at {selectedBooking.eventTime}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Guest Count</p>
+                                  <p className="font-medium">{selectedBooking.guestCount} guests</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Event Type</p>
+                                  <p className="font-medium">{selectedBooking.eventType || 'Not specified'}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Budget Range</p>
+                                  <p className="font-medium">{selectedBooking.budget || 'Not specified'}</p>
+                                </div>
+                                <div className="md:col-span-2">
+                                  <p className="text-sm text-muted-foreground">Location</p>
+                                  <p className="font-medium">{selectedBooking.location}</p>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            {/* Services */}
+                            <div>
+                              <h3 className="text-lg font-semibold mb-3">Selected Services</h3>
+                              <div className="flex flex-wrap gap-2">
+                                {selectedBooking.services.map((service: string) => (
+                                  <Badge key={service} variant="secondary" className="text-sm">
+                                    {service.replace('-', ' ')}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            {/* Preferences & Requirements */}
+                            <div>
+                              <h3 className="text-lg font-semibold mb-3">Preferences & Requirements</h3>
+                              <div className="space-y-4">
+                                {selectedBooking.flavourPreferences && (
+                                  <div>
+                                    <p className="text-sm text-muted-foreground">Flavour Preferences</p>
+                                    <p className="font-medium">{selectedBooking.flavourPreferences}</p>
+                                  </div>
+                                )}
+                                {selectedBooking.specialRequirements && (
+                                  <div>
+                                    <p className="text-sm text-muted-foreground">Special Requirements</p>
+                                    <p className="font-medium">{selectedBooking.specialRequirements}</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            
+                            <Separator />
+                            
+                            {/* Booking Status */}
+                            <div>
+                              <h3 className="text-lg font-semibold mb-3">Booking Status</h3>
+                              <div className="flex items-center space-x-4">
+                                <Badge 
+                                  variant={selectedBooking.status === 'confirmed' ? 'default' : 
+                                         selectedBooking.status === 'cancelled' ? 'destructive' : 
+                                         selectedBooking.status === 'completed' ? 'outline' : 'secondary'}
+                                  className="text-sm"
+                                >
+                                  {selectedBooking.status || 'pending'}
+                                </Badge>
+                                <p className="text-sm text-muted-foreground">
+                                  Submitted: {selectedBooking.createdAt ? new Date(selectedBooking.createdAt).toLocaleDateString() : 'N/A'}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </DialogContent>
+                    </Dialog>
                     <Select
                       onValueChange={(value) => handleUpdateStatus(booking.id, value)}
                       defaultValue={booking.status || 'pending'}
@@ -170,6 +298,7 @@ export default function AdminDashboard() {
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="confirmed">Confirmed</SelectItem>
                         <SelectItem value="cancelled">Cancelled</SelectItem>
+                        <SelectItem value="completed">Completed</SelectItem>
                       </SelectContent>
                     </Select>
                     <AlertDialog>
@@ -254,7 +383,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-5 gap-6 mb-8">
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
@@ -311,16 +440,30 @@ export default function AdminDashboard() {
               </div>
             </CardContent>
           </Card>
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center">
+                <CheckCircle className="text-purple-500 h-8 w-8 mr-3" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Completed</p>
+                  <p className="text-2xl font-bold" data-testid="stats-completed-bookings">
+                    {isLoading ? "-" : bookings?.filter((booking: any) => booking.status === 'completed').length || 0}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Bookings Tabs */}
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="all">All Bookings</TabsTrigger>
             <TabsTrigger value="pending">Pending</TabsTrigger>
             <TabsTrigger value="confirmed">Confirmed</TabsTrigger>
             <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
             <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+            <TabsTrigger value="completed">Completed</TabsTrigger>
           </TabsList>
           
           <TabsContent value="all">
@@ -351,7 +494,7 @@ export default function AdminDashboard() {
           </TabsContent>
 
           {/* Other Tab Contents with filtered data */}
-          {['pending', 'confirmed', 'cancelled', 'upcoming'].map((status) => (
+          {['pending', 'confirmed', 'cancelled', 'upcoming', 'completed'].map((status) => (
             <TabsContent key={status} value={status}>
               <Card>
                 <CardHeader>
