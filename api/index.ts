@@ -19,13 +19,15 @@ const possibleStaticPaths = [
   path.resolve(process.cwd(), 'dist', 'public'),
   path.resolve(__dirname, '..', 'dist', 'public'),
   path.resolve('dist', 'public'),
+  path.resolve(process.cwd(), 'assets'), // If copied to root
+  path.resolve(process.cwd()), // If files are in root
 ];
 
 let staticPath: string | null = null;
 for (const testPath of possibleStaticPaths) {
   if (fs.existsSync(testPath)) {
     staticPath = testPath;
-    app.use(express.static(testPath));
+    app.use('/assets', express.static(path.join(testPath, 'assets')));
     console.log('Serving static files from:', testPath);
     break;
   }
@@ -66,6 +68,7 @@ app.get('*', (req, res) => {
     path.resolve(process.cwd(), 'dist', 'public', 'index.html'),
     path.resolve(__dirname, '..', 'dist', 'public', 'index.html'),
     path.resolve('dist', 'public', 'index.html'),
+    path.resolve(process.cwd(), 'index.html'), // If copied to root
   ];
 
   let indexPath: string | null = null;

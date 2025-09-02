@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && cp -r dist/public/* . && ls -la",
   "builds": [
     {
       "src": "api/index.ts",
@@ -13,13 +13,12 @@
       "dest": "/api/index.ts"
     },
     {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.ts"
     }
-  ],
-  "functions": {
-    "api/index.ts": {
-      "includeFiles": ["dist/**"]
-    }
-  }
+  ]
 }
