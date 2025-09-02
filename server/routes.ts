@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertBookingSchema } from "@shared/schema";
 import { z } from "zod";
+import { sendBookingNotification, sendCustomerConfirmation } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Booking endpoint
@@ -11,7 +12,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertBookingSchema.parse(req.body);
       const booking = await storage.createBooking(validatedData);
       
-      // In a real app, you would send an email notification here
       console.log("New booking received:", {
         id: booking.id,
         name: `${booking.firstName} ${booking.lastName}`,
@@ -19,6 +19,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         eventDate: booking.eventDate,
         services: booking.services
       });
+
+      // Send email notifications
+      const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+      
+      if (adminEmail) {
+        // Send notification to admin
+        const adminNotification = await sendBookingNotification(booking, adminEmail);
+        console.log('Admin notification status:', adminNotification.success ? 'Sent' : 'Failed');
+        
+        // Send confirmation to customer
+        const customerConfirmation = await sendCustomerConfirmation(booking);
+        console.log('Customer confirmation status:', customerConfirmation.success ? 'Sent' : 'Failed');
+      } else {
+        console.warn('No admin email configured. Set ADMIN_EMAIL or SMTP_USER environment variable.');
+      }
       
       res.json({ success: true, booking });
     } catch (error) {
@@ -28,6 +43,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error("Booking creation error:", error);
         res.status(500).json({ error: "Internal server error" });
       }
+    }
+  });
+
+  // Test email endpoint
+  app.post('/api/test-email', async (req, res) => {
+    try {
+      const testBooking = {
+        id: 'test-' + Date.now(),
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'dawooda32100@gmail.com',
+        phone: '1234567890',
+        eventDate: '2025-01-01',
+        eventTime: '18:00',
+        location: 'Test Location',
+        guestCount: 5,
+        services: ['Shisha Setup', 'Premium Flavours'],
+        createdAt: new Date().toISOString()
+      };
+
+      const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+      
+      // Send test notification to admin
+      const adminNotification = await sendBookingNotification(testBooking, adminEmail!);
+      
+      // Send test confirmation to customer  
+      const customerConfirmation = await sendCustomerConfirmation(testBooking);
+      
+      res.json({
+        success: true,
+        adminNotification,
+        customerConfirmation
+      });
+    } catch (error) {
+      console.error('Test email error:', error);
+      res.status(500).json({ success: false, error: error.message });
     }
   });
 

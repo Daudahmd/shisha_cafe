@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { insertBookingSchema, type InsertBooking } from "@shared/schema";
-import { createBooking } from "@/lib/firebase";
+// import { createBooking } from "@/lib/firebase";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -41,7 +41,20 @@ export default function ContactForm() {
 
   const bookingMutation = useMutation({
     mutationFn: async (data: InsertBooking) => {
-      return createBooking(data);
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to submit booking');
+      }
+      
+      return response.json();
     },
     onSuccess: (result) => {
       console.log("Booking created:", result);
