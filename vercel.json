@@ -1,7 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "npm run build && cp -r dist/public/* . && ls -la",
   "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "distDir": "dist/public"
+      }
+    },
     {
       "src": "api/index.ts",
       "use": "@vercel/node"
@@ -13,12 +20,8 @@
       "dest": "/api/index.ts"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/api/index.ts"
+      "dest": "/$1"
     }
   ]
 }
