@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:vercel && ls -la dist/",
-  "installCommand": "npm install",
+  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "api/index.ts",
@@ -17,5 +16,10 @@
       "src": "/(.*)",
       "dest": "/api/index.ts"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": ["dist/**"]
+    }
+  }
 }
