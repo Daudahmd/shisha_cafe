@@ -5,6 +5,10 @@
     {
       "src": "server/index.ts",
       "use": "@vercel/node"
+    },
+    {
+      "src": "dist/public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -14,7 +18,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/public/$1"
+      "dest": "/dist/public/index.html"
     }
   ]
 }
