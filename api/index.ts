@@ -5,16 +5,31 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import nodemailer from 'nodemailer';
 import { z } from 'zod';
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, Timestamp } from "firebase/firestore";
 
 // Fix for __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = express();
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDSYb_o4gpTub7vjPMGgP3-FEmTX-CyOVA",
+  authDomain: "shishacafe-bf03c.firebaseapp.com",
+  projectId: "shishacafe-bf03c",
+  storageBucket: "shishacafe-bf03c.appspot.com",
+  appId: "1:692246947503:web:fcfa8f977611f35a5d965a",
+  measurementId: "G-B5VRGDQKVQ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const expressApp = express();
 
 // Basic middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+expressApp.use(express.json());
+expressApp.use(express.urlencoded({ extended: false }));
 
 // Email configuration
 const emailConfig = {
@@ -190,7 +205,7 @@ let staticPath: string | null = null;
 for (const testPath of possibleStaticPaths) {
   if (fs.existsSync(testPath)) {
     staticPath = testPath;
-    app.use('/assets', express.static(path.join(testPath, 'assets')));
+    expressApp.use('/assets', express.static(path.join(testPath, 'assets')));
     console.log('Serving static files from:', testPath);
     break;
   }
@@ -198,23 +213,31 @@ for (const testPath of possibleStaticPaths) {
 
 
 // Health check route
-app.get('/api/health', (req, res) => {
+expressApp.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // API routes with email functionality
-app.post('/api/bookings', async (req, res) => {
+expressApp.post('/api/bookings', async (req, res) => {
   try {
     console.log('Booking request received:', req.body);
     
     // Validate the request
     const booking = insertBookingSchema.parse(req.body);
     
+    // Save booking to Firebase
+    const docRef = await addDoc(collection(db, "bookings"), {
+      ...booking,
+      createdAt: Timestamp.now(),
+      status: "pending"
+    });
+
     // Add booking metadata
     const bookingWithMeta = {
       ...booking,
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+      id: docRef.id,
       createdAt: new Date().toISOString(),
+      status: "pending"
     };
 
     console.log('New booking created:', {
@@ -251,16 +274,24 @@ app.post('/api/bookings', async (req, res) => {
   }
 });
 
-app.get('/api/bookings', (req, res) => {
+expressApp.get('/api/bookings', async (req, res) => {
   try {
-    res.json([]);
+    const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+    const querySnapshot = await getDocs(q);
+    const bookings = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data().createdAt?.toDate() || new Date()
+    }));
+    res.json(bookings);
   } catch (error) {
+    console.error('Error fetching bookings:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 // Catch all route - serve React app or create a working Shisha Cafe app
-app.get('*', (req, res) => {
+expressApp.get('*', (req, res) => {
   // Try to find index.html in any of the possible locations
   const possibleIndexPaths = [
     path.resolve(process.cwd(), 'dist', 'public', 'index.html'),
@@ -335,4 +366,4 @@ app.get('*', (req, res) => {
 });
 
 // Export for Vercel
-export default app;
+export default expressApp;
