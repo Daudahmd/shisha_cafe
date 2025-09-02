@@ -9,10 +9,21 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files if they exist
-const staticPath = path.resolve(process.cwd(), 'dist', 'public');
-if (fs.existsSync(staticPath)) {
-  app.use(express.static(staticPath));
+// Try to find and serve static files
+const possibleStaticPaths = [
+  path.resolve(process.cwd(), 'dist', 'public'),
+  path.resolve(__dirname, '..', 'dist', 'public'),
+  path.resolve('dist', 'public'),
+];
+
+let staticPath: string | null = null;
+for (const testPath of possibleStaticPaths) {
+  if (fs.existsSync(testPath)) {
+    staticPath = testPath;
+    app.use(express.static(testPath));
+    console.log('Serving static files from:', testPath);
+    break;
+  }
 }
 
 
@@ -45,13 +56,27 @@ app.get('/api/bookings', (req, res) => {
 
 // Catch all route - serve React app or fallback
 app.get('*', (req, res) => {
-  // Try to serve index.html if it exists
-  const indexPath = path.resolve(process.cwd(), 'dist', 'public', 'index.html');
+  // Try to find index.html in any of the possible locations
+  const possibleIndexPaths = [
+    path.resolve(process.cwd(), 'dist', 'public', 'index.html'),
+    path.resolve(__dirname, '..', 'dist', 'public', 'index.html'),
+    path.resolve('dist', 'public', 'index.html'),
+  ];
+
+  let indexPath: string | null = null;
+  for (const testPath of possibleIndexPaths) {
+    if (fs.existsSync(testPath)) {
+      indexPath = testPath;
+      break;
+    }
+  }
   
-  if (fs.existsSync(indexPath)) {
+  if (indexPath) {
+    console.log('Serving React app from:', indexPath);
     res.sendFile(indexPath);
   } else {
     // Fallback to simple HTML if React app not built
+    console.log('React app not found, serving fallback. Checked paths:', possibleIndexPaths);
     res.send(`
       <!DOCTYPE html>
       <html>
@@ -95,20 +120,30 @@ app.get('*', (req, res) => {
           .btn:hover {
             background: rgba(255,255,255,0.3);
           }
+          .debug {
+            font-size: 0.8em;
+            margin-top: 20px;
+            opacity: 0.7;
+            max-width: 600px;
+            word-break: break-all;
+          }
         </style>
       </head>
       <body>
         <div class="container">
           <h1>🌟 Shisha Cafe</h1>
           <p>Premium Shisha Experience</p>
-          <p>React app is building... Please refresh in a moment.</p>
+          <p>React app build not found. Checking deployment...</p>
           <div>
             <a href="/api/health" class="btn">API Status</a>
             <a href="/api/bookings" class="btn">View Bookings</a>
           </div>
-          <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
-            Build path: ${path.resolve(process.cwd(), 'dist', 'public')}
-          </p>
+          <div class="debug">
+            <p><strong>Checked paths:</strong></p>
+            ${possibleIndexPaths.map(p => `<p>❌ ${p}</p>`).join('')}
+            <p><strong>Current directory:</strong> ${process.cwd()}</p>
+            <p><strong>Static path used:</strong> ${staticPath || 'None found'}</p>
+          </div>
         </div>
       </body>
       </html>
