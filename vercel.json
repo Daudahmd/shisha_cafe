@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "npm run build:vercel",
+  "buildCommand": "npm run build:vercel && ls -la dist/",
+  "installCommand": "npm install",
   "builds": [
     {
       "src": "api/index.ts",
