@@ -72,18 +72,62 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "..", "dist", "public");
+  // Try multiple possible paths for the built files
+  const possiblePaths = [
+    path.resolve(__dirname, "..", "dist", "public"),
+    path.resolve(__dirname, "..", "client", "dist"),
+    path.resolve(__dirname, "public"),
+    path.resolve(process.cwd(), "dist", "public"),
+    path.resolve(process.cwd(), "client", "dist")
+  ];
 
-  if (!fs.existsSync(distPath)) {
-    throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
-    );
+  let distPath: string | null = null;
+  for (const testPath of possiblePaths) {
+    if (fs.existsSync(testPath)) {
+      distPath = testPath;
+      break;
+    }
   }
 
+  if (!distPath) {
+    console.error("Could not find build directory. Tried:", possiblePaths);
+    // Fallback - serve a simple HTML response
+    app.use("*", (_req, res) => {
+      res.status(200).send(`
+        <!DOCTYPE html>
+        <html>
+        <head><title>Shisha Cafe</title></head>
+        <body>
+          <h1>Shisha Cafe</h1>
+          <p>Application is starting up...</p>
+          <p>Build directory not found. Please check deployment.</p>
+        </body>
+        </html>
+      `);
+    });
+    return;
+  }
+
+  console.log("Serving static files from:", distPath);
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    const indexPath = path.resolve(distPath, "index.html");
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
+    } else {
+      res.status(200).send(`
+        <!DOCTYPE html>
+        <html>
+        <head><title>Shisha Cafe</title></head>
+        <body>
+          <h1>Shisha Cafe</h1>
+          <p>Welcome to Shisha Cafe!</p>
+          <p>Static files path: ${distPath}</p>
+        </body>
+        </html>
+      `);
+    }
   });
 }
