@@ -56,9 +56,6 @@ export default function ServicesSection() {
             <Card key={index} className="bg-card hover-float" data-testid={`service-card-${index}`}>
               <CardContent className="p-8">
                 <div className="text-center mb-6">
-                  <div className={`w-16 h-16 ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
-                    <service.icon className={`text-2xl ${service.gradient === 'gradient-gold' ? 'text-black' : 'text-white'}`} />
-                  </div>
                   <h3 className="font-serif text-2xl font-semibold mb-4 text-red">{service.title}</h3>
                   <p className="text-muted-foreground mb-6">
                     {service.description}
