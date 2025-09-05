@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Wine, LogIn } from "lucide-react";
+import { LogIn } from "lucide-react";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -55,9 +55,6 @@ export default function AdminLogin() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <Wine className="text-primary text-4xl" />
-          </div>
           <CardTitle className="text-2xl font-serif">Admin Login</CardTitle>
           <p className="text-muted-foreground">Shisha Chauffeurs Dashboard</p>
         </CardHeader>

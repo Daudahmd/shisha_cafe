@@ -1,10 +1,10 @@
-import { Wine, Martini, Home, Check } from "lucide-react";
+import { Martini, Home, Check } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function ServicesSection() {
   const services = [
     {
-      icon: Wine,
+      icon: Martini,
       title: "Shisha Catering",
       description: "Professional shisha masters bring premium flavours and equipment directly to your event",
       gradient: "gradient-gold",
@@ -31,7 +31,7 @@ export default function ServicesSection() {
       icon: Home,
       title: "Shisha Rentals",
       description: "Rent premium shisha equipment for your private events and parties",
-      gradient: "bg-secondary",
+      gradient: "gradient-gold",
       features: [
         "High-quality equipment",
         "Flexible rental periods",
@@ -59,7 +59,7 @@ export default function ServicesSection() {
                   <div className={`w-16 h-16 ${service.gradient} rounded-full flex items-center justify-center mx-auto mb-4`}>
                     <service.icon className={`text-2xl ${service.gradient === 'gradient-gold' ? 'text-black' : 'text-white'}`} />
                   </div>
-                  <h3 className="font-serif text-2xl font-semibold mb-4">{service.title}</h3>
+                  <h3 className="font-serif text-2xl font-semibold mb-4 text-red">{service.title}</h3>
                   <p className="text-muted-foreground mb-6">
                     {service.description}
                   </p>

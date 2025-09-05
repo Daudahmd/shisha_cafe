@@ -13,7 +13,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { Wine, LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2, Eye, MessageSquare } from "lucide-react";
+import { LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2, Eye, MessageSquare } from "lucide-react";
 import type { Booking } from "@shared/schema";
 
 export default function AdminDashboard() {
@@ -336,7 +336,6 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <Wine className="text-primary text-6xl mx-auto mb-4 animate-spin" />
           <p className="text-muted-foreground">Loading...</p>
         </div>
       </div>
@@ -354,7 +353,6 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
-              <Wine className="text-primary text-2xl" />
               <span className="font-serif font-bold text-xl">ADMIN DASHBOARD</span>
             </div>
             <div className="flex items-center space-x-4">
@@ -400,7 +398,7 @@ export default function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Clock className="text-yellow-500 h-8 w-8 mr-3" />
+                <Clock className="text-red-500 h-8 w-8 mr-3" />
                 <div>
                   <p className="text-sm text-muted-foreground">Pending</p>
                   <p className="text-2xl font-bold" data-testid="stats-pending-bookings">
@@ -443,7 +441,7 @@ export default function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <CheckCircle className="text-purple-500 h-8 w-8 mr-3" />
+                <CheckCircle className="text-red-500 h-8 w-8 mr-3" />
                 <div>
                   <p className="text-sm text-muted-foreground">Completed</p>
                   <p className="text-2xl font-bold" data-testid="stats-completed-bookings">
@@ -474,8 +472,7 @@ export default function AdminDashboard() {
               <CardContent>
                 {isLoading ? (
                   <div className="text-center py-8">
-                    <Wine className="text-primary text-4xl mx-auto mb-4 animate-spin" />
-                    <p className="text-muted-foreground">Loading bookings...</p>
+                                        <p className="text-muted-foreground">Loading bookings...</p>
                   </div>
                 ) : error ? (
                   <div className="text-center py-8">
@@ -483,8 +480,7 @@ export default function AdminDashboard() {
                   </div>
                 ) : !bookings || bookings.length === 0 ? (
                   <div className="text-center py-8">
-                    <Wine className="text-muted-foreground text-4xl mx-auto mb-4" />
-                    <p className="text-muted-foreground">No booking requests yet</p>
+                                        <p className="text-muted-foreground">No booking requests yet</p>
                   </div>
                 ) : (
                   renderBookingTable(bookings)
@@ -513,8 +509,7 @@ export default function AdminDashboard() {
                     
                     return filteredBookings.length === 0 ? (
                       <div className="text-center py-8">
-                        <Wine className="text-muted-foreground text-4xl mx-auto mb-4" />
-                        <p className="text-muted-foreground">No {status} bookings</p>
+                                                <p className="text-muted-foreground">No {status} bookings</p>
                       </div>
                     ) : (
                       renderBookingTable(filteredBookings)

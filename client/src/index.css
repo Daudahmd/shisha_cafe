@@ -10,19 +10,19 @@
   --card-foreground: hsl(0, 0%, 98%);
   --popover: hsl(0, 0%, 4%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --primary: hsl(45, 100%, 51%);
+  --primary: hsl(0, 84%, 60%);
   --primary-foreground: hsl(0, 0%, 4%);
   --secondary: hsl(262, 83%, 28%);
   --secondary-foreground: hsl(0, 0%, 98%);
   --muted: hsl(0, 0%, 15%);
   --muted-foreground: hsl(0, 0%, 70%);
-  --accent: hsl(45, 100%, 51%);
+  --accent: hsl(0, 84%, 60%);
   --accent-foreground: hsl(0, 0%, 4%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(0, 0%, 98%);
   --border: hsl(0, 0%, 20%);
   --input: hsl(0, 0%, 15%);
-  --ring: hsl(45, 100%, 51%);
+  --ring: hsl(0, 84%, 60%);
   --chart-1: hsl(203.8863, 88.2845%, 53.1373%);
   --chart-2: hsl(159.7826, 100%, 36.0784%);
   --chart-3: hsl(42.0290, 92.8251%, 56.2745%);
@@ -59,19 +59,19 @@
   --card-foreground: hsl(0, 0%, 98%);
   --popover: hsl(0, 0%, 4%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --primary: hsl(45, 100%, 51%);
+  --primary: hsl(0, 84%, 60%);
   --primary-foreground: hsl(0, 0%, 4%);
   --secondary: hsl(262, 83%, 28%);
   --secondary-foreground: hsl(0, 0%, 98%);
   --muted: hsl(0, 0%, 15%);
   --muted-foreground: hsl(0, 0%, 70%);
-  --accent: hsl(45, 100%, 51%);
+  --accent: hsl(0, 84%, 60%);
   --accent-foreground: hsl(0, 0%, 4%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(0, 0%, 98%);
   --border: hsl(0, 0%, 20%);
   --input: hsl(0, 0%, 15%);
-  --ring: hsl(45, 100%, 51%);
+  --ring: hsl(0, 84%, 60%);
 }
 
 @layer base {
@@ -85,11 +85,11 @@
 }
 
 .gradient-gold {
-  background: linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(45, 100%, 40%) 100%);
+  background: linear-gradient(135deg, hsl(0, 84%, 60%) 0%, hsl(0, 84%, 50%) 100%);
 }
 
 .gradient-purple {
-  background: linear-gradient(135deg, hsl(262, 83%, 28%) 0%, hsl(262, 83%, 20%) 100%);
+  background: linear-gradient(135deg, hsl(0, 84%, 60%) 0%, hsl(0, 84%, 50%) 100%);
 }
 
 .glass-effect {
@@ -132,4 +132,8 @@
 
 .animate-in {
   animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.text-red {
+  color: hsl(0, 84%, 60%);
 }

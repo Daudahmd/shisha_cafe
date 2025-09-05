@@ -6,13 +6,12 @@ export default function FlavoursMenu() {
     { name: "Lemon Mint", emoji: "🍋" },
     { name: "Grape", emoji: "🍇" },
     { name: "Blueberry", emoji: "🫐" },
-    { name: "Peach", emoji: "🍑" },
     { name: "Mango", emoji: "🥭" },
     { name: "Lady Killer", emoji: "🌿" }
   ];
 
   const premiumFlavours = [
-    { name: "Chauffeur Special", description: "(Blue Dragon + Lady Killer)", emoji: "🍷" },
+    { name: "Chauffeur Special", description: "(Blue Dragon + Lady Killer)", emoji: "🌟" },
     { name: "Blue Mist", description: "(Blueberry + Mint)", emoji: "🔵" },
     { name: "Royal Paan Breeze", description: "(Paan + mint)", emoji: "🍃" },
     { name: "Summer Sunset", description: "(Mango + Peach + Lemon)", emoji: "🍑🥭" },
@@ -34,7 +33,7 @@ export default function FlavoursMenu() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {standardFlavours.map((flavour, index) => (
-              <Card key={index} className="bg-card text-center hover-float glass-effect" data-testid={`standard-flavour-${index}`}>
+              <Card key={index} className="bg-card text-center hover-float gradient-purple" data-testid={`standard-flavour-${index}`}>
                 <CardContent className="p-6">
                   <div className="text-4xl mb-3">{flavour.emoji}</div>
                   <h4 className="font-semibold text-lg mb-2">{flavour.name}</h4>

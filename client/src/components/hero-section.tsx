@@ -1,6 +1,5 @@
-import { Wine, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroBackground from "@assets/generated_images/Luxury_cafe_background_ambiance_6f58b1f8.png";
 
 export default function HeroSection() {
   const scrollToSection = (sectionId: string) => {
@@ -15,7 +14,7 @@ export default function HeroSection() {
       {/* Hero background */}
       <div className="absolute inset-0">
         <img 
-          src={heroBackground} 
+          src="https://lh3.googleusercontent.com/pw/AP1GczOrQSNMMXMkfvlqyH32IhDel9d5ORHwmV-nHIfYLSv1ya8e7Cc9RngQdbYVctm9a9Z1MhtN3K8OnQlMo76X1Mj19MaqwAk_kA6Xby8OpoG4crYB4LL1zhj97zA1CI2kIhKdCAFAglvDlofj5IIihanJ=w854-h683-s-no?authuser=0" 
           alt="Luxury shisha cafe ambiance" 
           className="w-full h-full object-cover"
         />
@@ -23,14 +22,11 @@ export default function HeroSection() {
       </div>
       
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-        <div className="animate-float mb-6">
-          <Wine className="text-primary text-6xl mb-4 mx-auto" />
-        </div>
         <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 text-shadow">
           LUXURY MOBILE <br />
           <span className="text-primary font-extrabold tracking-wider">SHISHA CATERING</span>
         </h1>
-        <p className="text-xl md:text-2xl mb-2 text-muted-foreground">Where flavor meets finesse 🍇</p>
+        <p className="text-xl md:text-2xl mb-2 text-muted-foreground">Where flavor meets finesse</p>
         <p className="text-lg md:text-xl mb-8 text-muted-foreground">Premium shisha & mocktail services delivered to your doorstep</p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

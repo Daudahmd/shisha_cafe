@@ -1,41 +1,35 @@
 import { Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import luxuryOutdoorSetup from "@assets/generated_images/Luxury_outdoor_shisha_setup_a699a404.png";
-import premiumLoungeInterior from "@assets/generated_images/Premium_shisha_lounge_interior_8c0729c8.png";
-import elegantPipeCloseup from "@assets/generated_images/Elegant_shisha_pipe_closeup_a817225e.png";
-import upscalePatioService from "@assets/generated_images/Upscale_patio_shisha_service_525a35ce.png";
-import professionalPreparation from "@assets/generated_images/Professional_shisha_preparation_cda695d2.png";
-import luxuryRooftopBar from "@assets/generated_images/Luxury_rooftop_shisha_bar_bd9f4268.png";
 
 export default function GallerySection() {
   const galleryImages = [
     {
-      src: luxuryOutdoorSetup,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczP-FRnrKUzQHX4h3rFX5DBRwpNjR41QuvgOr-2S5jDEqNNplXwg4ydxC5pFM4hQNGnUSa1mDz3ezAUM255rVxOTBhjoCtaEpA_yoosryeLGv-y0ZOOZ8MgB2_1YiulzC92N4VSXRNHangaDqTxd54ay5Q=w512-h683-s-no?authuser=0",
       alt: "Luxury outdoor shisha setup",
       caption: "Outdoor Event Setup"
     },
     {
-      src: premiumLoungeInterior,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczPAc3EgZ-ZVaIoD664HFRkpZEYXy9OAKkbzp02u1kd6YgVBpfe6fr5_luMF1soMWbl3j0gTVNQ4h_iJrRHNbezvQ-zUB-4ZA1BiQNV_ii8mgHSiC_RHWzXOc1qb1JyWJRFAwWBVAHtN1x_uk80CX3BHFg=w512-h683-s-no?authuser=0",
       alt: "Premium shisha lounge interior",
       caption: "Premium Lounge Experience"
     },
     {
-      src: elegantPipeCloseup,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczNs-OAgeTHQGhPQcis1nx135hfFnewdZjy0vs2-HBuLkjn3jCCLSiw6u_OiGHPS3ET8z6DkNeTg5WzOZ8xGb88UKHtbUnLd-zby0bs_fXNiQcEZl0EH3A-HbZyTa2qkgGihiDJjg_bxf6_Gd0fJZRpcXQ=w512-h683-s-no?authuser=0",
       alt: "Elegant shisha pipe closeup",
       caption: "Premium Equipment"
     },
     {
-      src: upscalePatioService,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczN3qDn5ysxiWEUEAkye-N_xGi-mOP63IzmZ9cDBf5Mj0i627kpZJZTgSW2zOSx7Row1wBPvwiDl6yFEULJD_olvb1EQz8sfL5eqLSPa_uIlQuDmrrT4YHJRDliJ8J9w6P8DyN5vfjkE_mqRnfNAoNDeww=w512-h683-s-no?authuser=0",
       alt: "Upscale patio shisha service",
       caption: "Private Residence Service"
     },
     {
-      src: professionalPreparation,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczOoPLJF23dRVAOy5vqPBGLULmoJNtEpTdAa05H55gyhl8M2u6UcIgd6B5qP8ujLKxBamhbgfzwNofFUmyWVxEYjRNHgNl69pT9NmDENTAtt2hrCSV7qjRQCQjTk_F1-9JUMB61aCco1tbfCMibKqUFhtQ=w512-h683-s-no?authuser=0",
       alt: "Professional shisha preparation",
       caption: "Expert Preparation"
     },
     {
-      src: luxuryRooftopBar,
+      src: "https://lh3.googleusercontent.com/pw/AP1GczMi0k9U9UoPmxy9_uYqI0NEbVQUuyU9ASX27FRNoR0LQXkpeYJveI_S6UzB9u8NziZwwbevSKyagg8uqIuGPmoiJ0oS9eImuPG5JX8y67m7wb7f6qjBsUg6soLkUJwonLAT4vqOXB7iie_TxXDwQ3wdVQ=w512-h683-s-no?authuser=0",
       alt: "Luxury rooftop shisha bar",
       caption: "Rooftop Events"
     }
@@ -67,7 +61,7 @@ export default function GallerySection() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-12 space-x-4">
           <Button 
             asChild
             className="gradient-gold px-8 py-4 rounded-full text-black font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"

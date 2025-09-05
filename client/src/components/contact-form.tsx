@@ -103,7 +103,7 @@ export default function ContactForm() {
     <section id="contact" className="py-20 bg-muted">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4">Book Your Event</h2>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 text-red">Book Your Event</h2>
           <p className="text-xl text-muted-foreground">Let's make your event unforgettable!</p>
         </div>
 
@@ -422,19 +422,19 @@ export default function ContactForm() {
                       <h4 className="font-semibold mb-4">Important Information:</h4>
                       <ul className="space-y-2 text-sm">
                         <li className="flex items-start">
-                          <span className="text-primary mr-2">✓</span>
+                          <span className="text-primary mr-2">•</span>
                           Services are available for outdoor locations and private residences only
                         </li>
                         <li className="flex items-start">
-                          <span className="text-primary mr-2">✓</span>
+                          <span className="text-primary mr-2">•</span>
                           A deposit is required to secure your booking
                         </li>
                         <li className="flex items-start">
-                          <span className="text-primary mr-2">✓</span>
+                          <span className="text-primary mr-2">•</span>
                           Our team will contact you within 24 hours to confirm availability
                         </li>
                         <li className="flex items-start">
-                          <span className="text-primary mr-2">✓</span>
+                          <span className="text-primary mr-2">•</span>
                           Final pricing will be provided based on your specific requirements
                         </li>
                       </ul>

@@ -1,4 +1,4 @@
-import { CheckCircle, Wine } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 export default function AboutSection() {
   const features = [
@@ -14,7 +14,7 @@ export default function AboutSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6">About Shisha Chauffeurs</h2>
-            <p className="text-xl mb-6 text-primary">Where flavor meets finesse 🍇</p>
+            <p className="text-xl mb-6 text-primary">Where flavor meets finesse</p>
             <p className="text-lg text-muted-foreground mb-6">
               We are a premium mobile shisha and mocktail catering service that brings luxury directly to your events. 
               Our team of professionals ensures every gathering becomes an unforgettable experience with the finest 
@@ -37,13 +37,10 @@ export default function AboutSection() {
           
           <div className="relative">
             <img 
-              src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-              alt="Professional shisha service" 
+              src="https://lh3.googleusercontent.com/pw/AP1GczNvIUwAacYkUVNx6O-SOAQnnTmEV-gqK90NWR0G1HwlZPnlrNXZJ6s21BhEm88xZ6o5onE44Ssv74D0E8kJLiVhJAkYs6_AJC7q2CeUpfFZ8dFewKTkOrtdQrsr4X2vtwjzwN_Xw2DLdnikZABsLCJJ=w854-h683-s-no?authuser=0" 
+              alt="Professional shisha service preparation" 
               className="rounded-xl shadow-2xl"
             />
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 gradient-gold rounded-full flex items-center justify-center">
-              <Wine className="text-black text-3xl" />
-            </div>
           </div>
         </div>
       </div>
