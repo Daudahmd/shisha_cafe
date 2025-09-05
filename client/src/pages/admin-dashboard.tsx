@@ -411,7 +411,7 @@ export default function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <CheckCircle className="text-green-500 h-8 w-8 mr-3" />
+                <CheckCircle className="text-red-500 h-8 w-8 mr-3" />
                 <div>
                   <p className="text-sm text-muted-foreground">Confirmed</p>
                   <p className="text-2xl font-bold" data-testid="stats-confirmed-bookings">
@@ -424,7 +424,7 @@ export default function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <Calendar className="text-blue-500 h-8 w-8 mr-3" />
+                <Calendar className="text-red-500 h-8 w-8 mr-3" />
                 <div>
                   <p className="text-sm text-muted-foreground">Upcoming</p>
                   <p className="text-2xl font-bold" data-testid="stats-upcoming-bookings">
