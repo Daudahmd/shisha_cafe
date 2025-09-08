@@ -1,6 +1,9 @@
 import Navigation from "@/components/navigation";
 import HeroSection from "@/components/hero-section";
 import ServicesSection from "@/components/services-section";
+import PackagesSection from "@/components/packages-section";
+import MembershipsSection from "@/components/memberships-section";
+import ShishaRentalsSection from "@/components/shisha-rentals-section";
 import FlavoursMenu from "@/components/flavours-menu";
 import GallerySection from "@/components/gallery-section";
 import AboutSection from "@/components/about-section";
@@ -14,6 +17,9 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ServicesSection />
+      <PackagesSection />
+      <MembershipsSection />
+      <ShishaRentalsSection />
       <FlavoursMenu />
       <GallerySection />
       <ContactForm />

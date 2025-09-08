@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { auth, signOut, getBookings, updateBookingStatus, deleteBooking } from "@/lib/firebase";
+import { auth, signOut, updateBookingStatus, deleteBooking } from "@/lib/firebase";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -13,8 +13,8 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2, Eye, MessageSquare } from "lucide-react";
-import type { Booking } from "@shared/schema";
+import { LogOut, Users, Calendar, Mail, Phone, MapPin, CheckCircle, Clock, XCircle, Trash2, Eye, MessageSquare, Crown, Award } from "lucide-react";
+import type { Booking, Member } from "@shared/schema";
 
 export default function AdminDashboard() {
   const { user, loading: authLoading } = useAuth();
@@ -31,39 +31,93 @@ export default function AdminDashboard() {
 
   const { data: bookings, isLoading, error, refetch } = useQuery({
     queryKey: ['bookings'],
-    queryFn: getBookings,
+    queryFn: async () => {
+      const response = await fetch('/api/bookings');
+      if (!response.ok) {
+        throw new Error('Failed to fetch bookings');
+      }
+      return response.json();
+    },
+    enabled: !!user,
+  });
+
+  const { data: members, isLoading: membersLoading, error: membersError, refetch: refetchMembers } = useQuery({
+    queryKey: ['members'],
+    queryFn: async () => {
+      const response = await fetch('/api/members');
+      if (!response.ok) {
+        throw new Error('Failed to fetch members');
+      }
+      return response.json();
+    },
     enabled: !!user,
   });
 
   const handleUpdateStatus = async (id: string, status: string) => {
+    console.log('Updating booking status:', id, 'to', status);
     try {
-      await updateBookingStatus(id, status);
-      await refetch();
+      const result = await updateBookingStatus(id, status);
+      console.log('Status update result:', result);
+      const refetchResult = await refetch();
+      console.log('Refetch result:', refetchResult);
       toast({
         title: "Status Updated",
         description: `Booking status updated to ${status}`,
       });
     } catch (error) {
+      console.error('Status update error:', error);
       toast({
         title: "Error",
-        description: "Failed to update booking status",
+        description: `Failed to update booking status: ${error.message}`,
         variant: "destructive",
       });
     }
   };
 
   const handleDeleteBooking = async (id: string) => {
+    console.log('Deleting booking:', id);
     try {
-      await deleteBooking(id);
-      await refetch();
+      const result = await deleteBooking(id);
+      console.log('Delete result:', result);
+      const refetchResult = await refetch();
+      console.log('Refetch after delete result:', refetchResult);
       toast({
         title: "Booking Deleted",
         description: "Booking has been permanently deleted",
       });
     } catch (error) {
+      console.error('Delete error:', error);
       toast({
         title: "Error",
-        description: "Failed to delete booking",
+        description: `Failed to delete booking: ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleUpdateMemberStatus = async (memberId: string, status: string) => {
+    try {
+      const response = await fetch(`/api/members/${memberId}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update member status');
+      }
+
+      await refetchMembers();
+      toast({
+        title: "Member Status Updated",
+        description: `Member status updated to ${status}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update member status",
         variant: "destructive",
       });
     }
@@ -84,6 +138,168 @@ export default function AdminDashboard() {
         variant: "destructive",
       });
     }
+  };
+
+  const renderMembersTable = (filteredMembers: Member[]) => {
+    return (
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Member</TableHead>
+              <TableHead>Contact</TableHead>
+              <TableHead>Membership</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Dates</TableHead>
+              <TableHead>Bookings</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredMembers.map((member: Member) => {
+              const isExpired = new Date(member.expiryDate) < new Date();
+              const daysUntilExpiry = Math.ceil((new Date(member.expiryDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+              
+              return (
+                <TableRow key={member.id}>
+                  <TableCell>
+                    <div className="flex items-center">
+                      {member.membershipType === 'Platinum' ? (
+                        <Crown className="h-4 w-4 mr-2 text-purple-500" />
+                      ) : (
+                        <Award className="h-4 w-4 mr-2 text-yellow-500" />
+                      )}
+                      <div>
+                        <p className="font-semibold">
+                          {member.firstName} {member.lastName}
+                        </p>
+                        {member.instagram && (
+                          <p className="text-sm text-muted-foreground">
+                            @{member.instagram}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-1">
+                      <div className="flex items-center text-sm">
+                        <Mail className="h-3 w-3 mr-2" />
+                        {member.email}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Phone className="h-3 w-3 mr-2" />
+                        {member.phone}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge 
+                      variant={member.membershipType === 'Platinum' ? 'default' : 'secondary'}
+                      className={member.membershipType === 'Platinum' ? 'bg-purple-100 text-purple-800' : 'bg-yellow-100 text-yellow-800'}
+                    >
+                      {member.membershipType}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-1">
+                      <div className="flex gap-1 flex-wrap">
+                        <Badge 
+                          variant={
+                            member.membershipStatus === 'active' ? 'default' : 
+                            member.membershipStatus === 'expired' ? 'destructive' : 
+                            member.membershipStatus === 'pending_payment' ? 'secondary' : 'outline'
+                          }
+                        >
+                          {member.membershipStatus.replace('_', ' ')}
+                        </Badge>
+                        {member.paymentStatus && (
+                          <Badge 
+                            variant={
+                              member.paymentStatus === 'paid' ? 'default' :
+                              member.paymentStatus === 'pending' ? 'secondary' :
+                              member.paymentStatus === 'failed' ? 'destructive' : 'outline'
+                            }
+                            className="text-xs"
+                          >
+                            {member.paymentStatus === 'paid' ? '💳 Paid' : 
+                             member.paymentStatus === 'pending' ? '⏳ Payment Pending' :
+                             member.paymentStatus === 'failed' ? '❌ Failed' : member.paymentStatus}
+                          </Badge>
+                        )}
+                      </div>
+                      {member.membershipStatus === 'pending_payment' && (
+                        <p className="text-xs text-orange-600 font-medium">⚠️ Awaiting Payment</p>
+                      )}
+                      {isExpired && member.membershipStatus === 'active' && (
+                        <p className="text-xs text-red-500">Expired</p>
+                      )}
+                      {!isExpired && member.membershipStatus === 'active' && daysUntilExpiry <= 7 && (
+                        <p className="text-xs text-orange-500">Expires in {daysUntilExpiry} days</p>
+                      )}
+                      {member.paymentAmount && (
+                        <p className="text-xs text-muted-foreground">${member.paymentAmount}/month</p>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-1 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Start:</span> {new Date(member.startDate).toLocaleDateString()}
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Expires:</span> {new Date(member.expiryDate).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="text-center">
+                      <p className="text-lg font-semibold">{member.totalBookings}</p>
+                      <p className="text-xs text-muted-foreground">total</p>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-2">
+                      <Select
+                        onValueChange={(value) => handleUpdateMemberStatus(member.id, value)}
+                        defaultValue={member.membershipStatus}
+                      >
+                        <SelectTrigger className="w-40">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pending_payment">Pending Payment</SelectItem>
+                          <SelectItem value="active">Active</SelectItem>
+                          <SelectItem value="expired">Expired</SelectItem>
+                          <SelectItem value="cancelled">Cancelled</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {member.membershipStatus === 'pending_payment' && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            // In a real app, this would open a payment confirmation dialog
+                            handleUpdateMemberStatus(member.id, 'active');
+                            toast({
+                              title: "Payment Confirmed",
+                              description: "Member status updated to active",
+                            });
+                          }}
+                          className="w-full text-xs"
+                        >
+                          ✅ Confirm Payment
+                        </Button>
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+    );
   };
 
   const renderBookingTable = (filteredBookings: any[]) => {
@@ -154,9 +370,9 @@ export default function AdminDashboard() {
                 </TableCell>
                 <TableCell>
                   <Badge 
-                    variant={booking.status === 'confirmed' ? 'default' : 
-                           booking.status === 'cancelled' ? 'destructive' : 
-                           booking.status === 'completed' ? 'outline' : 'secondary'}
+                    variant={(booking.status || 'pending') === 'confirmed' ? 'default' : 
+                           (booking.status || 'pending') === 'cancelled' ? 'destructive' : 
+                           (booking.status || 'pending') === 'completed' ? 'outline' : 'secondary'}
                   >
                     {booking.status || 'pending'}
                   </Badge>
@@ -243,6 +459,7 @@ export default function AdminDashboard() {
                               </div>
                             </div>
                             
+                            
                             <Separator />
                             
                             {/* Preferences & Requirements */}
@@ -289,7 +506,7 @@ export default function AdminDashboard() {
                     </Dialog>
                     <Select
                       onValueChange={(value) => handleUpdateStatus(booking.id, value)}
-                      defaultValue={booking.status || 'pending'}
+                      value={booking.status || 'pending'}
                     >
                       <SelectTrigger className="w-32">
                         <SelectValue />
@@ -376,8 +593,8 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-serif font-bold mb-2">Booking Requests</h1>
-          <p className="text-muted-foreground">Manage and view all customer booking requests</p>
+          <h1 className="text-3xl font-serif font-bold mb-2">Admin Dashboard</h1>
+          <p className="text-muted-foreground">Manage bookings and member accounts</p>
         </div>
 
         {/* Stats Cards */}
@@ -402,7 +619,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-sm text-muted-foreground">Pending</p>
                   <p className="text-2xl font-bold" data-testid="stats-pending-bookings">
-                    {isLoading ? "-" : bookings?.filter((booking: any) => booking.status === 'pending').length || 0}
+                    {isLoading ? "-" : bookings?.filter((booking: any) => (booking.status || 'pending') === 'pending').length || 0}
                   </p>
                 </div>
               </div>
@@ -415,7 +632,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-sm text-muted-foreground">Confirmed</p>
                   <p className="text-2xl font-bold" data-testid="stats-confirmed-bookings">
-                    {isLoading ? "-" : bookings?.filter((booking: any) => booking.status === 'confirmed').length || 0}
+                    {isLoading ? "-" : bookings?.filter((booking: any) => (booking.status || 'pending') === 'confirmed').length || 0}
                   </p>
                 </div>
               </div>
@@ -431,7 +648,7 @@ export default function AdminDashboard() {
                     {isLoading ? "-" : bookings?.filter((booking: any) => {
                       const eventDate = new Date(booking.eventDate);
                       const today = new Date();
-                      return eventDate > today && booking.status === 'confirmed';
+                      return eventDate > today && (booking.status || 'pending') === 'confirmed';
                     }).length || 0}
                   </p>
                 </div>
@@ -445,7 +662,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-sm text-muted-foreground">Completed</p>
                   <p className="text-2xl font-bold" data-testid="stats-completed-bookings">
-                    {isLoading ? "-" : bookings?.filter((booking: any) => booking.status === 'completed').length || 0}
+                    {isLoading ? "-" : bookings?.filter((booking: any) => (booking.status || 'pending') === 'completed').length || 0}
                   </p>
                 </div>
               </div>
@@ -453,16 +670,23 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Bookings Tabs */}
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="all">All Bookings</TabsTrigger>
-            <TabsTrigger value="pending">Pending</TabsTrigger>
-            <TabsTrigger value="confirmed">Confirmed</TabsTrigger>
-            <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
-            <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-            <TabsTrigger value="completed">Completed</TabsTrigger>
+        {/* Main Tabs */}
+        <Tabs defaultValue="bookings" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="bookings">Bookings</TabsTrigger>
+            <TabsTrigger value="members">Members</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="bookings">
+            <Tabs defaultValue="all" className="w-full">
+              <TabsList className="grid w-full grid-cols-6">
+                <TabsTrigger value="all">All Bookings</TabsTrigger>
+                <TabsTrigger value="pending">Pending</TabsTrigger>
+                <TabsTrigger value="confirmed">Confirmed</TabsTrigger>
+                <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
+                <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
+                <TabsTrigger value="completed">Completed</TabsTrigger>
+              </TabsList>
           
           <TabsContent value="all">
             <Card>
@@ -499,12 +723,13 @@ export default function AdminDashboard() {
                 <CardContent>
                   {(() => {
                     const filteredBookings = bookings?.filter((booking: any) => {
+                      const bookingStatus = booking.status || 'pending'; // Default to pending if no status
                       if (status === 'upcoming') {
                         const eventDate = new Date(booking.eventDate);
                         const today = new Date();
-                        return eventDate > today && booking.status === 'confirmed';
+                        return eventDate > today && bookingStatus === 'confirmed';
                       }
-                      return booking.status === status;
+                      return bookingStatus === status;
                     }) || [];
                     
                     return filteredBookings.length === 0 ? (
@@ -519,6 +744,104 @@ export default function AdminDashboard() {
               </Card>
             </TabsContent>
           ))}
+            </Tabs>
+          </TabsContent>
+
+          <TabsContent value="members">
+            <Card>
+              <CardHeader>
+                <CardTitle>Membership Management</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {membersLoading ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">Loading members...</p>
+                  </div>
+                ) : membersError ? (
+                  <div className="text-center py-8">
+                    <p className="text-destructive">Error loading members</p>
+                  </div>
+                ) : !members || members.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">No members yet</p>
+                  </div>
+                ) : (
+                  <>
+                    {/* Member Stats */}
+                    <div className="grid md:grid-cols-5 gap-6 mb-6">
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center">
+                            <Users className="text-primary h-6 w-6 mr-2" />
+                            <div>
+                              <p className="text-sm text-muted-foreground">Total Members</p>
+                              <p className="text-xl font-bold">
+                                {members.length}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center">
+                            <Award className="text-yellow-500 h-6 w-6 mr-2" />
+                            <div>
+                              <p className="text-sm text-muted-foreground">Gold Members</p>
+                              <p className="text-xl font-bold">
+                                {members.filter((m: Member) => m.membershipType === 'Gold').length}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center">
+                            <Crown className="text-purple-500 h-6 w-6 mr-2" />
+                            <div>
+                              <p className="text-sm text-muted-foreground">Platinum Members</p>
+                              <p className="text-xl font-bold">
+                                {members.filter((m: Member) => m.membershipType === 'Platinum').length}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center">
+                            <CheckCircle className="text-green-500 h-6 w-6 mr-2" />
+                            <div>
+                              <p className="text-sm text-muted-foreground">Active</p>
+                              <p className="text-xl font-bold">
+                                {members.filter((m: Member) => m.membershipStatus === 'active').length}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card>
+                        <CardContent className="p-4">
+                          <div className="flex items-center">
+                            <Clock className="text-orange-500 h-6 w-6 mr-2" />
+                            <div>
+                              <p className="text-sm text-muted-foreground">Pending Payment</p>
+                              <p className="text-xl font-bold">
+                                {members.filter((m: Member) => m.membershipStatus === 'pending_payment').length}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                    
+                    {renderMembersTable(members)}
+                  </>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </main>
     </div>

@@ -31,7 +31,7 @@ export default function FlavoursMenu() {
           <h3 className="font-serif text-3xl font-semibold text-center mb-12 border-b border-primary pb-4">
             Standard Flavours
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {standardFlavours.map((flavour, index) => (
               <Card key={index} className="bg-card text-center hover-float gradient-purple" data-testid={`standard-flavour-${index}`}>
                 <CardContent className="p-6">

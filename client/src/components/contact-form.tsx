@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -39,6 +39,7 @@ export default function ContactForm() {
     },
   });
 
+
   const bookingMutation = useMutation({
     mutationFn: async (data: InsertBooking) => {
       const response = await fetch('/api/bookings', {
@@ -76,6 +77,7 @@ export default function ContactForm() {
   });
 
   const onSubmit = (data: InsertBooking) => {
+    console.log('Form submission data:', data);
     bookingMutation.mutate(data);
   };
 
@@ -354,6 +356,7 @@ export default function ContactForm() {
                 {currentStep === 4 && (
                   <div className="space-y-6">
                     <h3 className="font-serif text-2xl font-semibold mb-6">Preferences & Requirements</h3>
+                    
                     <FormField
                       control={form.control}
                       name="flavourPreferences"

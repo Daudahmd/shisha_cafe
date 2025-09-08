@@ -48,18 +48,32 @@ export default function Navigation() {
               Services
             </button>
             <button 
+              onClick={() => scrollToSection('packages')} 
+              className="hover:text-primary transition-colors"
+              data-testid="nav-packages"
+            >
+              Packages
+            </button>
+            <button 
+              onClick={() => scrollToSection('memberships')} 
+              className="hover:text-primary transition-colors"
+              data-testid="nav-memberships"
+            >
+              Memberships
+            </button>
+            <button 
+              onClick={() => scrollToSection('shisha-rentals')} 
+              className="hover:text-primary transition-colors"
+              data-testid="nav-pricing"
+            >
+              Pricing
+            </button>
+            <button 
               onClick={() => scrollToSection('flavours')} 
               className="hover:text-primary transition-colors"
               data-testid="nav-flavours"
             >
               Flavours
-            </button>
-            <button 
-              onClick={() => scrollToSection('gallery')} 
-              className="hover:text-primary transition-colors"
-              data-testid="nav-gallery"
-            >
-              Gallery
             </button>
             <button 
               onClick={() => scrollToSection('contact')} 
@@ -100,18 +114,32 @@ export default function Navigation() {
                 Services
               </button>
               <button 
+                onClick={() => scrollToSection('packages')} 
+                className="text-left hover:text-primary transition-colors"
+                data-testid="mobile-nav-packages"
+              >
+                Packages
+              </button>
+              <button 
+                onClick={() => scrollToSection('memberships')} 
+                className="text-left hover:text-primary transition-colors"
+                data-testid="mobile-nav-memberships"
+              >
+                Memberships
+              </button>
+              <button 
+                onClick={() => scrollToSection('shisha-rentals')} 
+                className="text-left hover:text-primary transition-colors"
+                data-testid="mobile-nav-pricing"
+              >
+                Pricing
+              </button>
+              <button 
                 onClick={() => scrollToSection('flavours')} 
                 className="text-left hover:text-primary transition-colors"
                 data-testid="mobile-nav-flavours"
               >
                 Flavours
-              </button>
-              <button 
-                onClick={() => scrollToSection('gallery')} 
-                className="text-left hover:text-primary transition-colors"
-                data-testid="mobile-nav-gallery"
-              >
-                Gallery
               </button>
               <button 
                 onClick={() => scrollToSection('contact')} 
